@@ -3,6 +3,8 @@
  * Copyright (c) 2008-2021, The Linux Foundation. All rights reserved.
  */
 
+#include <linux/pm_qos.h>
+
 #include "kgsl_device.h"
 #include "kgsl_sync.h"
 #include "adreno.h"
@@ -163,7 +165,8 @@ long kgsl_ioctl_helper(struct file *filep, unsigned int cmd, unsigned long arg,
 	return ret;
 }
 
-long kgsl_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+static long __kgsl_ioctl(struct file *filep, unsigned int cmd,
+			 unsigned long arg)
 {
 	struct kgsl_device_private *dev_priv = filep->private_data;
 	struct kgsl_device *device = dev_priv->device;
