@@ -37,6 +37,7 @@
 #include <linux/uaccess.h>
 #include <linux/sync_file.h>
 #include <linux/file.h>
+#include <linux/pm_qos.h>
 
 #include "drm_crtc_internal.h"
 
@@ -1273,7 +1274,7 @@ static void complete_signaling(struct drm_device *dev,
 	kfree(fence_state);
 }
 
-int drm_mode_atomic_ioctl(struct drm_device *dev,
+static int __drm_mode_atomic_ioctl(struct drm_device *dev,
 			  void *data, struct drm_file *file_priv)
 {
 	struct drm_mode_atomic *arg = data;
